@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as ForStudentsRouteImport } from './routes/for-students'
+import { Route as ForEmployersRouteImport } from './routes/for-employers'
+import { Route as ForCollegesRouteImport } from './routes/for-colleges'
+import { Route as AssessmentRouteImport } from './routes/assessment'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForStudentsRoute = ForStudentsRouteImport.update({
+  id: '/for-students',
+  path: '/for-students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForEmployersRoute = ForEmployersRouteImport.update({
+  id: '/for-employers',
+  path: '/for-employers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForCollegesRoute = ForCollegesRouteImport.update({
+  id: '/for-colleges',
+  path: '/for-colleges',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssessmentRoute = AssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/for-colleges': typeof ForCollegesRoute
+  '/for-employers': typeof ForEmployersRoute
+  '/for-students': typeof ForStudentsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/pricing': typeof PricingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/for-colleges': typeof ForCollegesRoute
+  '/for-employers': typeof ForEmployersRoute
+  '/for-students': typeof ForStudentsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/pricing': typeof PricingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assessment': typeof AssessmentRoute
+  '/for-colleges': typeof ForCollegesRoute
+  '/for-employers': typeof ForEmployersRoute
+  '/for-students': typeof ForStudentsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/pricing': typeof PricingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/assessment'
+    | '/for-colleges'
+    | '/for-employers'
+    | '/for-students'
+    | '/marketplace'
+    | '/pricing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/assessment'
+    | '/for-colleges'
+    | '/for-employers'
+    | '/for-students'
+    | '/marketplace'
+    | '/pricing'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/assessment'
+    | '/for-colleges'
+    | '/for-employers'
+    | '/for-students'
+    | '/marketplace'
+    | '/pricing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AssessmentRoute: typeof AssessmentRoute
+  ForCollegesRoute: typeof ForCollegesRoute
+  ForEmployersRoute: typeof ForEmployersRoute
+  ForStudentsRoute: typeof ForStudentsRoute
+  MarketplaceRoute: typeof MarketplaceRoute
+  PricingRoute: typeof PricingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-students': {
+      id: '/for-students'
+      path: '/for-students'
+      fullPath: '/for-students'
+      preLoaderRoute: typeof ForStudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-employers': {
+      id: '/for-employers'
+      path: '/for-employers'
+      fullPath: '/for-employers'
+      preLoaderRoute: typeof ForEmployersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-colleges': {
+      id: '/for-colleges'
+      path: '/for-colleges'
+      fullPath: '/for-colleges'
+      preLoaderRoute: typeof ForCollegesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assessment': {
+      id: '/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AssessmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +197,23 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AssessmentRoute: AssessmentRoute,
+  ForCollegesRoute: ForCollegesRoute,
+  ForEmployersRoute: ForEmployersRoute,
+  ForStudentsRoute: ForStudentsRoute,
+  MarketplaceRoute: MarketplaceRoute,
+  PricingRoute: PricingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
