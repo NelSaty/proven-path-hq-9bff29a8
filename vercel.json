@@ -1,4 +1,7 @@
 {
-  "framework": null,
-  "buildCommand": "npm run build"
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs"
+  }
 }
