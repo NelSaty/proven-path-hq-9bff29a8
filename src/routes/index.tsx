@@ -97,11 +97,13 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button
+              asChild
               size="lg"
-              onClick={notify}
               className="bg-gradient-button text-primary-foreground shadow-glow hover:opacity-95"
             >
-              Start Your Free Assessment <ArrowRight className="ml-1 h-4 w-4" />
+              <Link to="/auth" search={{ mode: "signup" }}>
+                Start Your Free Assessment <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" onClick={notify} className="border-foreground/20">
               Post a Project

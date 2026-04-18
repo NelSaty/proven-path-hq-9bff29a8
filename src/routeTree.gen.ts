@@ -14,6 +14,7 @@ import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as ForStudentsRouteImport } from './routes/for-students'
 import { Route as ForEmployersRouteImport } from './routes/for-employers'
 import { Route as ForCollegesRouteImport } from './routes/for-colleges'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -43,6 +44,11 @@ const ForEmployersRoute = ForEmployersRouteImport.update({
 const ForCollegesRoute = ForCollegesRouteImport.update({
   id: '/for-colleges',
   path: '/for-colleges',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssessmentRoute = AssessmentRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/for-colleges': typeof ForCollegesRoute
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/for-colleges': typeof ForCollegesRoute
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/assessment': typeof AssessmentRoute
+  '/auth': typeof AuthRoute
   '/for-colleges': typeof ForCollegesRoute
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/assessment'
+    | '/auth'
     | '/for-colleges'
     | '/for-employers'
     | '/for-students'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/assessment'
+    | '/auth'
     | '/for-colleges'
     | '/for-employers'
     | '/for-students'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/assessment'
+    | '/auth'
     | '/for-colleges'
     | '/for-employers'
     | '/for-students'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AssessmentRoute: typeof AssessmentRoute
+  AuthRoute: typeof AuthRoute
   ForCollegesRoute: typeof ForCollegesRoute
   ForEmployersRoute: typeof ForEmployersRoute
   ForStudentsRoute: typeof ForStudentsRoute
@@ -197,6 +210,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForCollegesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assessment': {
       id: '/assessment'
       path: '/assessment'
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AssessmentRoute: AssessmentRoute,
+  AuthRoute: AuthRoute,
   ForCollegesRoute: ForCollegesRoute,
   ForEmployersRoute: ForEmployersRoute,
   ForStudentsRoute: ForStudentsRoute,

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "react-hot-toast";
 
 const navLinks = [
   { to: "/for-students", label: "For Students" },
@@ -23,7 +22,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const notify = () => toast("Join the waitlist — launching soon! 🚀");
 
   return (
     <header
@@ -56,11 +54,11 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="ghost" onClick={notify} className="font-medium">
-            Login
+          <Button asChild variant="ghost" className="font-medium">
+            <Link to="/auth" search={{ mode: "login" }}>Login</Link>
           </Button>
-          <Button onClick={notify} className="bg-gradient-button text-primary-foreground shadow-glow hover:opacity-95">
-            Get Started Free
+          <Button asChild className="bg-gradient-button text-primary-foreground shadow-glow hover:opacity-95">
+            <Link to="/auth" search={{ mode: "signup" }}>Get Started Free</Link>
           </Button>
         </div>
 
@@ -87,11 +85,11 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
-              <Button variant="outline" onClick={notify}>
-                Login
+              <Button asChild variant="outline">
+                <Link to="/auth" search={{ mode: "login" }} onClick={() => setOpen(false)}>Login</Link>
               </Button>
-              <Button onClick={notify} className="bg-gradient-button text-primary-foreground">
-                Get Started Free
+              <Button asChild className="bg-gradient-button text-primary-foreground">
+                <Link to="/auth" search={{ mode: "signup" }} onClick={() => setOpen(false)}>Get Started Free</Link>
               </Button>
             </div>
           </div>

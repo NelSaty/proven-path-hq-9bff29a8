@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -53,8 +53,10 @@ function ForStudentsPage() {
             Get AI-assessed, earn real project income, build a blockchain portfolio, and get matched to jobs — all in one place.
           </motion.p>
           <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.2 }} className="mt-8">
-            <Button size="lg" onClick={notify} className="bg-gradient-button text-primary-foreground shadow-glow">
-              Start Free Assessment <ArrowRight className="ml-1 h-4 w-4" />
+            <Button asChild size="lg" className="bg-gradient-button text-primary-foreground shadow-glow">
+              <Link to="/auth" search={{ mode: "signup" }}>
+                Start Free Assessment <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
             </Button>
           </motion.div>
         </div>
