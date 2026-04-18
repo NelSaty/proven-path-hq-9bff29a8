@@ -24,7 +24,7 @@ const fadeUp = {
 
 function AboutPage() {
   const team = [
-    { name: "Karthik Iyer", role: "Founder & CEO", bio: "15 years scaling EdTech across India.", initials: "KI" },
+    { name: "Nelson M Sathya", role: "Founder & CEO", bio: "15 years scaling EdTech across India.", initials: "NS" },
     { name: "Meera Nair", role: "CTO & AI Lead", bio: "Ex-Google ML, IIT Madras alum.", initials: "MN" },
     { name: "Rohan Singh", role: "Head of Product", bio: "Built products at Razorpay & Unacademy.", initials: "RS" },
     { name: "Anaya Reddy", role: "Head of Partnerships", bio: "200+ college tie-ups across South India.", initials: "AR" },
