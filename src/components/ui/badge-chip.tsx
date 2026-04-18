@@ -1,17 +1,20 @@
 import { cn } from "@/lib/utils";
 
 const styles: Record<string, string> = {
-  ECE: "bg-[oklch(0.94_0.04_295)] text-[oklch(0.4_0.18_295)]",
-  EEE: "bg-[oklch(0.94_0.05_75)] text-[oklch(0.4_0.18_75)]",
-  Mechanical: "bg-[oklch(0.93_0.05_165)] text-[oklch(0.35_0.15_165)]",
-  CS: "bg-[oklch(0.94_0.05_230)] text-[oklch(0.4_0.18_230)]",
-  Business: "bg-[oklch(0.94_0.06_25)] text-[oklch(0.45_0.18_25)]",
-  AI: "bg-[oklch(0.94_0.04_320)] text-[oklch(0.4_0.18_320)]",
-  Explorer: "bg-[oklch(0.94_0.05_230)] text-[oklch(0.4_0.18_230)]",
-  Apprentice: "bg-[oklch(0.93_0.05_165)] text-[oklch(0.35_0.15_165)]",
-  Practitioner: "bg-[oklch(0.94_0.05_75)] text-[oklch(0.42_0.15_75)]",
-  Expert: "bg-[oklch(0.94_0.06_25)] text-[oklch(0.45_0.18_25)]",
-  Master: "bg-[oklch(0.94_0.04_295)] text-[oklch(0.4_0.18_295)]",
+  // Domain chips
+  ECE: "bg-[#DBEAFE] text-[#1D4ED8]",
+  EEE: "bg-[#FEF3C7] text-[#92400E]",
+  Mechanical: "bg-[#DCFCE7] text-[#15803D]",
+  CS: "bg-[#EDE9FE] text-[#6D28D9]",
+  "CS / Data": "bg-[#EDE9FE] text-[#6D28D9]",
+  Business: "bg-[#FFE4E6] text-[#BE123C]",
+  AI: "bg-[#CCFBF1] text-[#0F766E]",
+  // Tier chips
+  Explorer: "bg-[#F0F9FF] text-[#0369A1]",
+  Apprentice: "bg-[#DCFCE7] text-[#15803D]",
+  Practitioner: "bg-[#FEF3C7] text-[#92400E]",
+  Expert: "bg-[#EDE9FE] text-[#6D28D9]",
+  Master: "bg-[#FFE4E6] text-[#BE123C]",
 };
 
 export function BadgeChip({
