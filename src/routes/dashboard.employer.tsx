@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
@@ -7,6 +8,28 @@ import { BadgeChip } from "@/components/ui/badge-chip";
 import { TalentCard } from "@/components/marketplace/TalentCard";
 import { candidates, spendData } from "@/data/mockData";
 import { toast } from "react-hot-toast";
+
+type PostedProject = {
+  id: number;
+  title: string;
+  budgetMin: number;
+  budgetMax: number;
+  status: string;
+  applicants: number;
+  posted: string;
+};
+
+type ProjectRow = {
+  id: string;
+  name: string;
+  budget: string;
+  applicants: number;
+  status: string;
+  isNew?: boolean;
+};
+
+const formatINR = (n: number) =>
+  new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(n);
 
 export const Route = createFileRoute("/dashboard/employer")({
   head: () => ({
