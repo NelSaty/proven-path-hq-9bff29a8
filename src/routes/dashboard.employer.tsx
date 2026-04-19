@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings } from "lucide-react";
+import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings, Calendar, IndianRupee, Sparkles } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { DashboardSidebar, type SidebarItem } from "@/components/dashboard/DashboardSidebar";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,25 @@ import { BadgeChip } from "@/components/ui/badge-chip";
 import { TalentCard } from "@/components/marketplace/TalentCard";
 import { candidates, spendData } from "@/data/mockData";
 import { toast } from "react-hot-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type PostedProject = {
   id: number;
   title: string;
+  domain?: string;
+  tier?: string;
+  duration?: string;
   budgetMin: number;
   budgetMax: number;
+  skills?: string[];
+  description?: string;
+  deliverables?: string;
   status: string;
   applicants: number;
   posted: string;
@@ -26,6 +39,7 @@ type ProjectRow = {
   applicants: number;
   status: string;
   isNew?: boolean;
+  detail?: PostedProject;
 };
 
 const formatINR = (n: number) =>
@@ -65,6 +79,7 @@ const statusColors: Record<string, string> = {
 function EmployerDashboard() {
   const notify = () => toast("Join the waitlist — launching soon! 🚀");
   const [posted, setPosted] = useState<ProjectRow[]>([]);
+  const [selected, setSelected] = useState<PostedProject | null>(null);
 
   useEffect(() => {
     try {
@@ -78,6 +93,7 @@ function EmployerDashboard() {
         applicants: p.applicants ?? 0,
         status: p.status ?? "Active",
         isNew: true,
+        detail: p,
       }));
       setPosted(rows);
     } catch {
@@ -140,7 +156,13 @@ function EmployerDashboard() {
                     <td className="px-3 py-3">{p.applicants}</td>
                     <td className="px-3 py-3"><BadgeChip variant={statusColors[p.status]}>{p.status}</BadgeChip></td>
                     <td className="px-3 py-3 text-right">
-                      <Button size="sm" variant="outline" onClick={notify}>View</Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => (p.detail ? setSelected(p.detail) : notify())}
+                      >
+                        View
+                      </Button>
                     </td>
                   </tr>
                 ))}
