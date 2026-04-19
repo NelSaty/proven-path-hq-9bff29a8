@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings } from "lucide-react";
+import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings, Calendar, IndianRupee, Sparkles } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { DashboardSidebar, type SidebarItem } from "@/components/dashboard/DashboardSidebar";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,25 @@ import { BadgeChip } from "@/components/ui/badge-chip";
 import { TalentCard } from "@/components/marketplace/TalentCard";
 import { candidates, spendData } from "@/data/mockData";
 import { toast } from "react-hot-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 type PostedProject = {
   id: number;
   title: string;
+  domain?: string;
+  tier?: string;
+  duration?: string;
   budgetMin: number;
   budgetMax: number;
+  skills?: string[];
+  description?: string;
+  deliverables?: string;
   status: string;
   applicants: number;
   posted: string;
@@ -26,6 +39,7 @@ type ProjectRow = {
   applicants: number;
   status: string;
   isNew?: boolean;
+  detail?: PostedProject;
 };
 
 const formatINR = (n: number) =>
@@ -65,6 +79,7 @@ const statusColors: Record<string, string> = {
 function EmployerDashboard() {
   const notify = () => toast("Join the waitlist — launching soon! 🚀");
   const [posted, setPosted] = useState<ProjectRow[]>([]);
+  const [selected, setSelected] = useState<PostedProject | null>(null);
 
   useEffect(() => {
     try {
@@ -78,6 +93,7 @@ function EmployerDashboard() {
         applicants: p.applicants ?? 0,
         status: p.status ?? "Active",
         isNew: true,
+        detail: p,
       }));
       setPosted(rows);
     } catch {
@@ -140,7 +156,13 @@ function EmployerDashboard() {
                     <td className="px-3 py-3">{p.applicants}</td>
                     <td className="px-3 py-3"><BadgeChip variant={statusColors[p.status]}>{p.status}</BadgeChip></td>
                     <td className="px-3 py-3 text-right">
-                      <Button size="sm" variant="outline" onClick={notify}>View</Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => (p.detail ? setSelected(p.detail) : notify())}
+                      >
+                        View
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -202,6 +224,82 @@ function EmployerDashboard() {
           </div>
         </div>
       </main>
+
+      <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
+        <DialogContent className="max-w-2xl">
+          {selected && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{selected.title}</DialogTitle>
+                <DialogDescription>
+                  Posted {selected.posted} · {selected.applicants} applicants
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="flex flex-wrap gap-2">
+                {selected.domain && <BadgeChip variant="ECE">{selected.domain}</BadgeChip>}
+                {selected.tier && <BadgeChip variant={selected.tier}>{selected.tier}</BadgeChip>}
+                <BadgeChip variant={statusColors[selected.status]}>{selected.status}</BadgeChip>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-3">
+                <DetailStat icon={IndianRupee} label="Budget" value={`₹${formatINR(selected.budgetMin)}–₹${formatINR(selected.budgetMax)}`} />
+                <DetailStat icon={Calendar} label="Duration" value={selected.duration ?? "—"} />
+                <DetailStat icon={Sparkles} label="Skills" value={`${selected.skills?.length ?? 0} required`} />
+              </div>
+
+              {selected.skills && selected.skills.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Skills</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {selected.skills.map((s) => (
+                      <span key={s} className="rounded-full bg-secondary px-3 py-1 text-xs font-medium">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {selected.description && (
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Description</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-foreground">{selected.description}</p>
+                </div>
+              )}
+
+              {selected.deliverables && (
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Deliverables</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-foreground">{selected.deliverables}</p>
+                </div>
+              )}
+
+              <div className="flex justify-end gap-2 border-t border-border pt-4">
+                <Button variant="outline" onClick={() => setSelected(null)}>Close</Button>
+                <Button
+                  className="bg-gradient-button text-primary-foreground shadow-glow"
+                  onClick={notify}
+                >
+                  View Applicants
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+function DetailStat({ icon: Icon, label, value }: { icon: typeof Calendar; label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-border p-3">
+      <div className="flex items-center gap-1.5 text-muted-foreground">
+        <Icon className="h-3.5 w-3.5" />
+        <p className="text-[11px] font-bold uppercase tracking-widest">{label}</p>
+      </div>
+      <p className="mt-1 text-sm font-semibold text-foreground">{value}</p>
     </div>
   );
 }
