@@ -104,7 +104,7 @@ function EmployerDashboard() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Stat label="Active Projects" value="3" />
+          <Stat label="Active Projects" value={String(activeCount)} />
           <Stat label="Candidates in Pipeline" value="47" accent="primary" />
           <Stat label="Projects Completed" value="18" />
           <Stat label="Total Spend" value="₹3,24,000" accent="success" />
