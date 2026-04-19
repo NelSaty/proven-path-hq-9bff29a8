@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Home, ClipboardList, Users, BarChart3, CreditCard, Settings } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { DashboardSidebar, type SidebarItem } from "@/components/dashboard/DashboardSidebar";
@@ -52,8 +52,8 @@ function EmployerDashboard() {
             <p className="label-eyebrow text-coral">Employer Dashboard</p>
             <h1 className="mt-1 text-3xl font-bold tracking-tight">Hiring <span className="text-gradient">Overview</span></h1>
           </div>
-          <Button onClick={notify} className="bg-gradient-button text-primary-foreground shadow-glow">
-            + Post New Project
+          <Button asChild className="bg-gradient-button text-primary-foreground shadow-glow">
+            <Link to="/post-project">+ Post New Project</Link>
           </Button>
         </div>
 

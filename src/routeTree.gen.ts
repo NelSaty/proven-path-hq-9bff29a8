@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PostProjectRouteImport } from './routes/post-project'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as ForStudentsRouteImport } from './routes/for-students'
 import { Route as ForEmployersRouteImport } from './routes/for-employers'
@@ -24,6 +25,11 @@ import { Route as DashboardEmployerRouteImport } from './routes/dashboard.employ
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostProjectRoute = PostProjectRouteImport.update({
+  id: '/post-project',
+  path: '/post-project',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarketplaceRoute = MarketplaceRouteImport.update({
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/for-employers': typeof ForEmployersRoute
   '/for-students': typeof ForStudentsRoute
   '/marketplace': typeof MarketplaceRoute
+  '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/for-employers'
     | '/for-students'
     | '/marketplace'
+    | '/post-project'
     | '/pricing'
     | '/dashboard/employer'
     | '/dashboard/student'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/for-employers'
     | '/for-students'
     | '/marketplace'
+    | '/post-project'
     | '/pricing'
     | '/dashboard/employer'
     | '/dashboard/student'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/for-employers'
     | '/for-students'
     | '/marketplace'
+    | '/post-project'
     | '/pricing'
     | '/dashboard/employer'
     | '/dashboard/student'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   ForEmployersRoute: typeof ForEmployersRoute
   ForStudentsRoute: typeof ForStudentsRoute
   MarketplaceRoute: typeof MarketplaceRoute
+  PostProjectRoute: typeof PostProjectRoute
   PricingRoute: typeof PricingRoute
   DashboardEmployerRoute: typeof DashboardEmployerRoute
   DashboardStudentRoute: typeof DashboardStudentRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/post-project': {
+      id: '/post-project'
+      path: '/post-project'
+      fullPath: '/post-project'
+      preLoaderRoute: typeof PostProjectRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/marketplace': {
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForEmployersRoute: ForEmployersRoute,
   ForStudentsRoute: ForStudentsRoute,
   MarketplaceRoute: MarketplaceRoute,
+  PostProjectRoute: PostProjectRoute,
   PricingRoute: PricingRoute,
   DashboardEmployerRoute: DashboardEmployerRoute,
   DashboardStudentRoute: DashboardStudentRoute,
