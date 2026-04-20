@@ -1,10 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { ProjectCard } from "@/components/marketplace/ProjectCard";
 import { TalentCard } from "@/components/marketplace/TalentCard";
-import { projects, candidates } from "@/data/mockData";
+import { projects as seedProjects, candidates, type Project } from "@/data/mockData";
 import { cn } from "@/lib/utils";
+
+type PostedProject = {
+  id: number;
+  title: string;
+  domain: string;
+  tier: string;
+  duration: string;
+  budgetMin: number;
+  budgetMax: number;
+  skills: string[];
+  description?: string;
+  posted?: string;
+  applicants?: number;
+};
+
+function formatINR(n: number) {
+  return `₹${n.toLocaleString("en-IN")}`;
+}
+
+function toMarketplaceProject(p: PostedProject): Project {
+  return {
+    id: p.id,
+    title: p.title,
+    domain: p.domain,
+    budget: `${formatINR(p.budgetMin)}–${formatINR(p.budgetMax)}`,
+    budgetMin: p.budgetMin,
+    duration: p.duration,
+    tier: p.tier,
+    skills: Array.isArray(p.skills) ? p.skills : [],
+    applicants: p.applicants ?? 0,
+    company: "Your Company",
+    posted: p.posted ?? "just now",
+  };
+}
 
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
@@ -27,9 +61,22 @@ function MarketplacePage() {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("Newest");
   const [budget, setBudget] = useState(500000);
+  const [postedIds, setPostedIds] = useState<Set<number>>(new Set());
+  const [allProjects, setAllProjects] = useState<Project[]>(seedProjects);
+
+  useEffect(() => {
+    try {
+      const raw = JSON.parse(localStorage.getItem("tf_projects") ?? "[]") as PostedProject[];
+      const mapped = raw.map(toMarketplaceProject);
+      setPostedIds(new Set(mapped.map((p) => p.id)));
+      setAllProjects([...mapped, ...seedProjects]);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   const filteredProjects = useMemo(() => {
-    let r = projects.filter((p) => filter === "All" || p.domain === filter);
+    let r = allProjects.filter((p) => filter === "All" || p.domain === filter);
     if (query) {
       const q = query.toLowerCase();
       r = r.filter((p) => p.title.toLowerCase().includes(q) || p.skills.some((s) => s.toLowerCase().includes(q)));
@@ -37,7 +84,7 @@ function MarketplacePage() {
     r = r.filter((p) => p.budgetMin <= budget);
     if (sort === "Highest Pay") r = [...r].sort((a, b) => b.budgetMin - a.budgetMin);
     return r;
-  }, [filter, query, sort, budget]);
+  }, [allProjects, filter, query, sort, budget]);
 
   const filteredCandidates = useMemo(() => {
     let r = candidates.filter((c) => filter === "All" || c.domain === filter);
@@ -133,7 +180,7 @@ function MarketplacePage() {
               <EmptyState key="empty-projects" />
             ) : (
               <div key="grid-projects" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredProjects.map((p) => <ProjectCard key={`p-${p.id}`} project={p} />)}
+                {filteredProjects.map((p) => <ProjectCard key={`p-${p.id}`} project={p} isNew={postedIds.has(p.id)} />)}
               </div>
             )
           ) : filteredCandidates.length === 0 ? (
