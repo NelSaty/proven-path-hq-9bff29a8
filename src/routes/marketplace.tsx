@@ -1,10 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { ProjectCard } from "@/components/marketplace/ProjectCard";
 import { TalentCard } from "@/components/marketplace/TalentCard";
-import { projects, candidates } from "@/data/mockData";
+import { projects as seedProjects, candidates, type Project } from "@/data/mockData";
 import { cn } from "@/lib/utils";
+
+type PostedProject = {
+  id: number;
+  title: string;
+  domain: string;
+  tier: string;
+  duration: string;
+  budgetMin: number;
+  budgetMax: number;
+  skills: string[];
+  description?: string;
+  posted?: string;
+  applicants?: number;
+};
+
+function formatINR(n: number) {
+  return `₹${n.toLocaleString("en-IN")}`;
+}
+
+function toMarketplaceProject(p: PostedProject): Project {
+  return {
+    id: p.id,
+    title: p.title,
+    domain: p.domain,
+    budget: `${formatINR(p.budgetMin)}–${formatINR(p.budgetMax)}`,
+    budgetMin: p.budgetMin,
+    duration: p.duration,
+    tier: p.tier,
+    skills: Array.isArray(p.skills) ? p.skills : [],
+    applicants: p.applicants ?? 0,
+    company: "Your Company",
+    posted: p.posted ?? "just now",
+  };
+}
 
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
