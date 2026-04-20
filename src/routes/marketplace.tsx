@@ -16,6 +16,7 @@ type PostedProject = {
   budgetMax: number;
   skills: string[];
   description?: string;
+  deliverables?: string;
   posted?: string;
   applicants?: number;
 };
