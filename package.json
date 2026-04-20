@@ -1,7 +1,3 @@
-"scripts": {
-  "dev": "vite",
-  "build": "vite build"
-}
 {
   "name": "tanstack_start_ts",
   "private": true,
