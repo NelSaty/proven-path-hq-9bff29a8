@@ -10,6 +10,8 @@ export type Project = {
   applicants: number;
   company: string;
   posted: string;
+  description?: string;
+  deliverables?: string;
 };
 
 export const projects: Project[] = [
