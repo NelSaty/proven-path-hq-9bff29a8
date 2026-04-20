@@ -4,7 +4,7 @@ import { BadgeChip } from "@/components/ui/badge-chip";
 import { toast } from "react-hot-toast";
 import type { Project } from "@/data/mockData";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, isNew = false }: { project: Project; isNew?: boolean }) {
   const initials = project.company
     .split(" ")
     .map((w) => w[0])
@@ -23,7 +23,14 @@ export function ProjectCard({ project }: { project: Project }) {
             <p className="text-xs text-muted-foreground">{project.posted}</p>
           </div>
         </div>
-        <BadgeChip variant={project.tier}>{project.tier}+</BadgeChip>
+        <div className="flex flex-col items-end gap-1.5">
+          {isNew && (
+            <span className="inline-flex items-center rounded-full bg-coral/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-coral">
+              New
+            </span>
+          )}
+          <BadgeChip variant={project.tier}>{project.tier}+</BadgeChip>
+        </div>
       </div>
 
       <h3 className="mt-4 line-clamp-2 text-base font-semibold leading-snug text-foreground">

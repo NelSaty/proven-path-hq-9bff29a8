@@ -180,7 +180,7 @@ function MarketplacePage() {
               <EmptyState key="empty-projects" />
             ) : (
               <div key="grid-projects" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredProjects.map((p) => <ProjectCard key={`p-${p.id}`} project={p} />)}
+                {filteredProjects.map((p) => <ProjectCard key={`p-${p.id}`} project={p} isNew={postedIds.has(p.id)} />)}
               </div>
             )
           ) : filteredCandidates.length === 0 ? (
