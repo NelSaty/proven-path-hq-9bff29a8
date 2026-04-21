@@ -72,7 +72,7 @@ function Hero() {
   const notify = () => toast("Join the waitlist — launching soon! 🚀");
 
   return (
-    <section className="relative overflow-hidden bg-gradient-hero">
+    <section className="relative overflow-hidden bg-gradient-hero bg-mesh">
       <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary/15 blur-3xl" />
       <div className="absolute -bottom-32 -right-24 h-[28rem] w-[28rem] rounded-full bg-coral/15 blur-3xl" />
 
@@ -235,7 +235,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="py-24">
+    <section className="relative py-24 bg-mesh">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div {...fadeUp} className="text-center">
           <p className="label-eyebrow text-primary">How it works</p>
@@ -250,7 +250,7 @@ function HowItWorks() {
               key={s.title}
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.1 }}
-              className="group relative rounded-2xl border border-border bg-card p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-glow"
+              className="group relative rounded-2xl border border-border bg-card p-7 shadow-card card-hover"
             >
               <div className="absolute -top-4 left-7 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-button text-xs font-bold text-primary-foreground shadow-glow">
                 {i + 1}
@@ -285,7 +285,7 @@ function DomainCoverage() {
                 key={d.name}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: i * 0.05 }}
-                className="group rounded-2xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-glow"
+                className="group rounded-2xl border border-border bg-card p-6 shadow-card card-hover"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-button text-primary-foreground shadow-glow">
                   <Icon className="h-6 w-6" />
@@ -306,7 +306,7 @@ function DomainCoverage() {
 
 function Gamification() {
   return (
-    <section className="py-24">
+    <section className="relative py-24 bg-mesh">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div {...fadeUp} className="text-center">
           <p className="label-eyebrow text-primary">Gamification</p>
@@ -510,7 +510,7 @@ function Testimonials() {
               key={t.name}
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.1 }}
-              className="rounded-2xl border border-border bg-card p-7 shadow-card"
+              className="rounded-2xl border border-border bg-card p-7 shadow-card card-hover"
             >
               <span
                 className="inline-block rounded-full px-3 py-1 text-[11px] font-bold tracking-wide text-foreground"
