@@ -1,3 +1,7 @@
 export default function App() {
-  return <h1>App is working 🚀</h1>;
+  return (
+    <div style={{ color: "white", background: "black", height: "100vh" }}>
+      <h1>🚀 Vercel Deployment Working</h1>
+    </div>
+  );
 }
