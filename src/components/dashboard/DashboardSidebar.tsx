@@ -1,7 +1,4 @@
-import { Link, useLocation } from "@tanstack/react-router";
-import { LucideIcon } from "lucide-react";
-import { Zap } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { LucideIcon, Zap } from "lucide-react";
 
 export type SidebarItem = {
   label: string;
@@ -18,7 +15,7 @@ export function DashboardSidebar({
   brand: string;
   subtitle: string;
 }) {
-  const location = useLocation();
+  const pathname = window.location.pathname;
 
   return (
     <aside className="hidden w-64 shrink-0 border-r border-border bg-card/40 lg:block">
@@ -35,25 +32,25 @@ export function DashboardSidebar({
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {items.map((item) => {
-            const active = location.pathname === item.to;
+            const active = pathname === item.to;
             const Icon = item.icon;
+
             return (
-              <Link
+              <a
                 key={item.to}
-                to={item.to}
-                className={cn(
-                  "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                href={item.to}
+                className={`group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   active
                     ? "bg-secondary text-primary"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-                )}
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                }`}
               >
                 {active && (
                   <span className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gradient-button" />
                 )}
                 <Icon className="h-4 w-4" />
                 {item.label}
-              </Link>
+              </a>
             );
           })}
         </nav>
