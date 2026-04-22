@@ -73,7 +73,7 @@ function AboutPage() {
                 key={m.name}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: i * 0.06 }}
-                className="rounded-2xl border border-border bg-card p-6 text-center shadow-card transition-all hover:-translate-y-1 hover:shadow-glow"
+                className="rounded-2xl border border-border bg-card p-6 text-center shadow-card card-hover"
               >
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-button text-lg font-bold text-primary-foreground shadow-glow">
                   {m.initials}

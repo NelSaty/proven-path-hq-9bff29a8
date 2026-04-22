@@ -63,7 +63,7 @@ function ForCollegesPage() {
                 key={f.title}
                 {...fadeUp}
                 transition={{ ...fadeUp.transition, delay: i * 0.05 }}
-                className="rounded-2xl border border-border bg-card p-7 shadow-card transition-all hover:-translate-y-1 hover:shadow-glow"
+                className="rounded-2xl border border-border bg-card p-7 shadow-card card-hover"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-button text-primary-foreground shadow-glow">
                   <f.icon className="h-6 w-6" />

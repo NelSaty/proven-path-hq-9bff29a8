@@ -245,7 +245,7 @@ function FeaturesGrid() {
               key={f.title}
               {...fadeUp}
               transition={{ ...fadeUp.transition, delay: i * 0.04 }}
-              className="rounded-2xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-glow"
+              className="rounded-2xl border border-border bg-card p-6 shadow-card card-hover"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-button text-primary-foreground">
                 <f.icon className="h-5 w-5" />
