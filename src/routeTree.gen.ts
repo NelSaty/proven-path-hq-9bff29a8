@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostProjectRouteImport } from './routes/post-project'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
@@ -22,6 +23,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardStudentRouteImport } from './routes/dashboard.student'
 import { Route as DashboardEmployerRouteImport } from './routes/dashboard.employer'
 
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/post-project': typeof PostProjectRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/post-project'
     | '/pricing'
+    | '/profile'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/post-project'
     | '/pricing'
+    | '/profile'
     | '/dashboard/employer'
     | '/dashboard/student'
   id:
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/post-project'
     | '/pricing'
+    | '/profile'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesById: FileRoutesById
@@ -182,12 +194,20 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   PostProjectRoute: typeof PostProjectRoute
   PricingRoute: typeof PricingRoute
+  ProfileRoute: typeof ProfileRoute
   DashboardEmployerRoute: typeof DashboardEmployerRoute
   DashboardStudentRoute: typeof DashboardStudentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
@@ -286,9 +306,19 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   PostProjectRoute: PostProjectRoute,
   PricingRoute: PricingRoute,
+  ProfileRoute: ProfileRoute,
   DashboardEmployerRoute: DashboardEmployerRoute,
   DashboardStudentRoute: DashboardStudentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
