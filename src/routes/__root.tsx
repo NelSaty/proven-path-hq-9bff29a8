@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { AuthProvider } from "@/hooks/useAuth";
 
 function NotFoundComponent() {
   return (
@@ -76,25 +77,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <Navbar />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "oklch(0.22 0.03 290)",
-            color: "oklch(0.99 0.005 80)",
-            border: "1px solid oklch(0.55 0.22 295 / 0.3)",
-            borderRadius: "12px",
-            fontSize: "14px",
-            fontWeight: 500,
-          },
-        }}
-      />
-    </div>
+    <AuthProvider>
+      <div className="flex min-h-screen flex-col bg-background text-foreground">
+        <Navbar />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: "oklch(0.22 0.03 290)",
+              color: "oklch(0.99 0.005 80)",
+              border: "1px solid oklch(0.55 0.22 295 / 0.3)",
+              borderRadius: "12px",
+              fontSize: "14px",
+              fontWeight: 500,
+            },
+          }}
+        />
+      </div>
+    </AuthProvider>
   );
 }
