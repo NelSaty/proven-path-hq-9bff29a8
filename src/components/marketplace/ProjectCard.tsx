@@ -37,7 +37,7 @@ export function ProjectCard({ project, isNew = false }: { project: Project; isNe
 
   return (
     <>
-      <article className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-glow">
+      <article className="card-hover group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-card">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-button text-sm font-bold text-primary-foreground">
