@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, X, Zap } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Menu, X, Zap, LogOut, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 const navLinks = [
   { to: "/for-students", label: "For Students" },
@@ -14,6 +15,8 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { user, profile, signOut, loading } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -22,6 +25,14 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleSignOut = async () => {
+    await signOut();
+    navigate({ to: "/" });
+  };
+
+  const initials = profile?.full_name
+    ? profile.full_name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()
+    : user?.email?.[0]?.toUpperCase() ?? "?";
 
   return (
     <header
@@ -54,12 +65,38 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost" className="font-medium">
-            <Link to="/auth" search={{ mode: "login" }}>Login</Link>
-          </Button>
-          <Button asChild className="bg-gradient-button text-primary-foreground shadow-glow hover:opacity-95">
-            <Link to="/auth" search={{ mode: "signup" }}>Get Started Free</Link>
-          </Button>
+          {!loading && user ? (
+            <>
+              <Link
+                to="/profile"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                {profile?.avatar_url ? (
+                  <img src={profile.avatar_url} alt="" className="h-7 w-7 rounded-full border border-border object-cover" />
+                ) : (
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-button text-[11px] font-bold text-primary-foreground">
+                    {initials}
+                  </div>
+                )}
+                <span className="max-w-[120px] truncate">{profile?.full_name || "Profile"}</span>
+              </Link>
+              <Link to="/dashboard/student">
+                <Button variant="ghost" size="sm" className="font-medium">Dashboard</Button>
+              </Link>
+              <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-muted-foreground">
+                <LogOut className="mr-1 h-4 w-4" /> Sign Out
+              </Button>
+            </>
+          ) : !loading ? (
+            <>
+              <Button asChild variant="ghost" className="font-medium">
+                <Link to="/auth" search={{ mode: "login" }}>Login</Link>
+              </Button>
+              <Button asChild className="bg-gradient-button text-primary-foreground shadow-glow hover:opacity-95">
+                <Link to="/auth" search={{ mode: "signup" }}>Get Started Free</Link>
+              </Button>
+            </>
+          ) : null}
         </div>
 
         <button
@@ -85,12 +122,30 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
-              <Button asChild variant="outline">
-                <Link to="/auth" search={{ mode: "login" }} onClick={() => setOpen(false)}>Login</Link>
-              </Button>
-              <Button asChild className="bg-gradient-button text-primary-foreground">
-                <Link to="/auth" search={{ mode: "signup" }} onClick={() => setOpen(false)}>Get Started Free</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Button asChild variant="outline">
+                    <Link to="/profile" onClick={() => setOpen(false)}>
+                      <UserCircle className="mr-1 h-4 w-4" /> My Profile
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link to="/dashboard/student" onClick={() => setOpen(false)}>Dashboard</Link>
+                  </Button>
+                  <Button variant="ghost" onClick={() => { handleSignOut(); setOpen(false); }}>
+                    <LogOut className="mr-1 h-4 w-4" /> Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button asChild variant="outline">
+                    <Link to="/auth" search={{ mode: "login" }} onClick={() => setOpen(false)}>Login</Link>
+                  </Button>
+                  <Button asChild className="bg-gradient-button text-primary-foreground">
+                    <Link to="/auth" search={{ mode: "signup" }} onClick={() => setOpen(false)}>Get Started Free</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
