@@ -1,6 +1,6 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef, type FormEvent } from "react";
-import { Camera, Save, X, Plus } from "lucide-react";
+import { Camera, Save, X, Plus, BrainCircuit } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -247,15 +247,22 @@ function ProfilePage() {
           </div>
         </div>
 
-        <Button
-          type="submit"
-          disabled={saving}
-          className="bg-gradient-button text-primary-foreground shadow-glow"
-          size="lg"
-        >
-          {saving ? "Saving..." : "Save Profile"}
-          {!saving && <Save className="ml-1.5 h-4 w-4" />}
-        </Button>
+        <div className="flex flex-wrap gap-3">
+          <Button
+            type="submit"
+            disabled={saving}
+            className="bg-gradient-button text-primary-foreground shadow-glow"
+            size="lg"
+          >
+            {saving ? "Saving..." : "Save Profile"}
+            {!saving && <Save className="ml-1.5 h-4 w-4" />}
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link to="/skill-analysis">
+              <BrainCircuit className="mr-1.5 h-4 w-4" /> AI Skill Analyzer
+            </Link>
+          </Button>
+        </div>
       </form>
     </section>
   );
