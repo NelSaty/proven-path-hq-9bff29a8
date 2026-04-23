@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SkillAnalysisRouteImport } from './routes/skill-analysis'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PricingRouteImport } from './routes/pricing'
@@ -24,6 +25,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardStudentRouteImport } from './routes/dashboard.student'
 import { Route as DashboardEmployerRouteImport } from './routes/dashboard.employer'
 
+const SkillAnalysisRoute = SkillAnalysisRouteImport.update({
+  id: '/skill-analysis',
+  path: '/skill-analysis',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/skill-analysis': typeof SkillAnalysisRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/skill-analysis': typeof SkillAnalysisRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/skill-analysis': typeof SkillAnalysisRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/profile'
     | '/reset-password'
+    | '/skill-analysis'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesByTo: FileRoutesByTo
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/profile'
     | '/reset-password'
+    | '/skill-analysis'
     | '/dashboard/employer'
     | '/dashboard/student'
   id:
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/profile'
     | '/reset-password'
+    | '/skill-analysis'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesById: FileRoutesById
@@ -208,12 +220,20 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SkillAnalysisRoute: typeof SkillAnalysisRoute
   DashboardEmployerRoute: typeof DashboardEmployerRoute
   DashboardStudentRoute: typeof DashboardStudentRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/skill-analysis': {
+      id: '/skill-analysis'
+      path: '/skill-analysis'
+      fullPath: '/skill-analysis'
+      preLoaderRoute: typeof SkillAnalysisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -328,6 +348,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SkillAnalysisRoute: SkillAnalysisRoute,
   DashboardEmployerRoute: DashboardEmployerRoute,
   DashboardStudentRoute: DashboardStudentRoute,
 }
