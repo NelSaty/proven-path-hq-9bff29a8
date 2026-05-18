@@ -11,7 +11,10 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-button">
                 <Zap className="h-5 w-5 text-primary-foreground" fill="currentColor" />
               </div>
-              <span className="text-base font-bold">Talent Forge</span>
+              <div className="leading-tight">
+                <div className="text-base font-bold">Talent Forge</div>
+                <div className="text-[10px] font-medium text-muted-foreground">by Wier AI Technology Solutions</div>
+              </div>
             </Link>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               Prove Your Skills. Get Hired. India's first AI + blockchain talent platform.
@@ -58,7 +61,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© 2025 ResourceIndia.co · Talent Forge</p>
+          <p>© 2025 Talent Forge · by Wier AI Technology Solutions</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Privacy Policy</a>
             <a href="#" className="hover:text-foreground">Terms of Service</a>

@@ -47,7 +47,7 @@ export function Navbar() {
           </div>
           <div className="leading-tight">
             <div className="text-base font-bold tracking-tight text-foreground">Talent Forge</div>
-            <div className="text-[10px] font-medium text-muted-foreground">by ResourceIndia.co</div>
+            <div className="text-[10px] font-medium text-muted-foreground">by Wier AI Technology Solutions</div>
           </div>
         </Link>
 
