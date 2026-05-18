@@ -61,7 +61,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© 2025 ResourceIndia.co · Talent Forge</p>
+          <p>© 2025 Talent Forge · by Wier AI Technology Solutions</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Privacy Policy</a>
             <a href="#" className="hover:text-foreground">Terms of Service</a>
