@@ -1,4 +1,5 @@
-import { MapPin, Award, Briefcase, Wallet } from "lucide-react";
+import { MapPin, Award, Briefcase, Wallet, Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { BadgeChip } from "@/components/ui/badge-chip";
 import { toast } from "react-hot-toast";
@@ -70,8 +71,14 @@ export function TalentCard({ candidate }: { candidate: Candidate }) {
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-2">
-        <Button variant="outline" onClick={notify} className="text-xs">
-          View Profile
+        <Button
+          asChild
+          variant="outline"
+          className="text-xs"
+        >
+          <Link to="/candidate/$candidateId" params={{ candidateId: String(candidate.id) }}>
+            <Sparkles className="mr-1 h-3.5 w-3.5" /> AI Summary
+          </Link>
         </Button>
         <Button onClick={notify} className="bg-gradient-button text-primary-foreground text-xs">
           Invite

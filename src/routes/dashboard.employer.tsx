@@ -202,7 +202,12 @@ function EmployerDashboard() {
             <h2 className="text-lg font-bold">Top Matched Candidates</h2>
             <div className="mt-4 space-y-4">
               {candidates.slice(0, 3).map((c) => (
-                <div key={c.id} className="flex items-center gap-3 rounded-xl border border-border p-3">
+                <Link
+                  key={c.id}
+                  to="/candidate/$candidateId"
+                  params={{ candidateId: String(c.id) }}
+                  className="flex items-center gap-3 rounded-xl border border-border p-3 transition hover:border-primary hover:shadow-card"
+                >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-button text-xs font-bold text-primary-foreground">
                     {c.name.split(" ").map((w) => w[0]).join("")}
                   </div>
@@ -211,7 +216,7 @@ function EmployerDashboard() {
                     <p className="text-xs text-muted-foreground">{c.tier} · {c.domain}</p>
                   </div>
                   <div className="rounded-lg bg-gradient-button px-2 py-1 text-xs font-bold text-primary-foreground">{c.tfes}</div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

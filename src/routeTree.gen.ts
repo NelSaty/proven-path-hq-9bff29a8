@@ -24,6 +24,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardStudentRouteImport } from './routes/dashboard.student'
 import { Route as DashboardEmployerRouteImport } from './routes/dashboard.employer'
+import { Route as CandidateCandidateIdRouteImport } from './routes/candidate.$candidateId'
 
 const SkillAnalysisRoute = SkillAnalysisRouteImport.update({
   id: '/skill-analysis',
@@ -100,6 +101,11 @@ const DashboardEmployerRoute = DashboardEmployerRouteImport.update({
   path: '/dashboard/employer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CandidateCandidateIdRoute = CandidateCandidateIdRouteImport.update({
+  id: '/candidate/$candidateId',
+  path: '/candidate/$candidateId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
   '/skill-analysis': typeof SkillAnalysisRoute
+  '/candidate/$candidateId': typeof CandidateCandidateIdRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
   '/skill-analysis': typeof SkillAnalysisRoute
+  '/candidate/$candidateId': typeof CandidateCandidateIdRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
   '/skill-analysis': typeof SkillAnalysisRoute
+  '/candidate/$candidateId': typeof CandidateCandidateIdRoute
   '/dashboard/employer': typeof DashboardEmployerRoute
   '/dashboard/student': typeof DashboardStudentRoute
 }
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/reset-password'
     | '/skill-analysis'
+    | '/candidate/$candidateId'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesByTo: FileRoutesByTo
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/reset-password'
     | '/skill-analysis'
+    | '/candidate/$candidateId'
     | '/dashboard/employer'
     | '/dashboard/student'
   id:
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/reset-password'
     | '/skill-analysis'
+    | '/candidate/$candidateId'
     | '/dashboard/employer'
     | '/dashboard/student'
   fileRoutesById: FileRoutesById
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SkillAnalysisRoute: typeof SkillAnalysisRoute
+  CandidateCandidateIdRoute: typeof CandidateCandidateIdRoute
   DashboardEmployerRoute: typeof DashboardEmployerRoute
   DashboardStudentRoute: typeof DashboardStudentRoute
 }
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardEmployerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/candidate/$candidateId': {
+      id: '/candidate/$candidateId'
+      path: '/candidate/$candidateId'
+      fullPath: '/candidate/$candidateId'
+      preLoaderRoute: typeof CandidateCandidateIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SkillAnalysisRoute: SkillAnalysisRoute,
+  CandidateCandidateIdRoute: CandidateCandidateIdRoute,
   DashboardEmployerRoute: DashboardEmployerRoute,
   DashboardStudentRoute: DashboardStudentRoute,
 }
