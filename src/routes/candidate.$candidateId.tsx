@@ -51,7 +51,7 @@ export const Route = createFileRoute("/candidate/$candidateId")({
 });
 
 function CandidateAnalysisPage() {
-  const { candidate } = Route.useLoaderData();
+  const { candidate } = Route.useLoaderData() as { candidate: Candidate };
   const [summary, setSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [roleContext, setRoleContext] = useState("");
