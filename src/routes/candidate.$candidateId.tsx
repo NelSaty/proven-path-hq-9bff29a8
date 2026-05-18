@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { BadgeChip } from "@/components/ui/badge-chip";
-import { candidates } from "@/data/mockData";
+import { candidates, type Candidate } from "@/data/mockData";
 
 export const Route = createFileRoute("/candidate/$candidateId")({
   head: ({ params }) => ({
