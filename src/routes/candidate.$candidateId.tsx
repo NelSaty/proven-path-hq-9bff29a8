@@ -27,7 +27,7 @@ export const Route = createFileRoute("/candidate/$candidateId")({
       },
     ],
   }),
-  loader: ({ params }) => {
+  loader: ({ params }): { candidate: Candidate } => {
     const id = Number(params.candidateId);
     const candidate = candidates.find((c) => c.id === id);
     if (!candidate) throw notFound();
