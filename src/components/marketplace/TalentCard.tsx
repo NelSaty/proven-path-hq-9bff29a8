@@ -1,4 +1,5 @@
-import { MapPin, Award, Briefcase, Wallet } from "lucide-react";
+import { MapPin, Award, Briefcase, Wallet, Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { BadgeChip } from "@/components/ui/badge-chip";
 import { toast } from "react-hot-toast";
